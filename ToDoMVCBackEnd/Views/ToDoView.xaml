@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoMVCBackEnd.Views.ToDoView"
+             Title="To Do App">
+
+    <!--The first row will house the Collection, the second row will be add/clear buttons.-->
+    <Grid RowDefinitions="*, 80" RowSpacing="20">
+        <!--Content View-->
+        <ScrollView Grid.Row="0">
+            <CollectionView x:Name="collToDoItems" >
+                
+                <!--Describes the spacing between each item and how they are positioned in the collection.-->
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                               Span="2" VerticalItemSpacing="20" HorizontalItemSpacing="30"/>
+                </CollectionView.ItemsLayout>
+                
+                <!--Specify the look of a single item in the collection.-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="20" Padding="10" RowDefinitions="150, 50, 30, 60, 60" 
+                        ColumnDefinitions="250" BackgroundColor="#444444" WidthRequest="270">
+                            <Border BackgroundColor="{Binding ColorBackDrop}">
+                                <VerticalStackLayout>
+                                    <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"/>
+                                    <Editor Text="{Binding Detail, Mode=TwoWay}" FontSize="20"
+                                            HeightRequest="90" BackgroundColor="#55FFFFFF"
+                                            Margin="5" IsEnabled="{Binding Editing}"
+                                            />
+                                </VerticalStackLayout>
+
+                            </Border>
+                            <HorizontalStackLayout Grid.Row="1" >
+                                <Label Text="Assigned To: " VerticalOptions="Center" Margin="0, 0, 5, 0"/>
+                                <Entry Text="{Binding AssignedTo}" FontAttributes="Italic" FontSize="15" HeightRequest="40"
+                                       WidthRequest="160" BackgroundColor="#55FFFFFF" IsEnabled="{Binding Editing}"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding DateAssigned}" FontAttributes="Italic" Margin="35, 0"  Grid.Row="2"/>
+                            <Label Text="{Binding DateCompleted}" Grid.Row="3" HorizontalOptions="End" VerticalOptions="End"/>
+                            <HorizontalStackLayout Grid.Row="4" Spacing="5" HeightRequest="50">
+                                <Button Text="Edit" CommandParameter="{Binding ItemID}" Clicked="ButtonEditItem"/>
+                                <Button Text="Remove" CommandParameter="{Binding ItemID}" Clicked="ButtonDeleteItem"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                <!--Specify what the collection view displays if the collection is empty-->
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <Border MaximumWidthRequest="400" MaximumHeightRequest="320" Padding="20" 
+                                BackgroundColor="#272727" Stroke="#444488" StrokeThickness="5" 
+                                StrokeShape="RoundRectangle, 10">
+                            <Label Text="No Tasks to show.  Click Add Task at the bottom to add a new tasK!"
+                                   FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" 
+                                   HorizontalTextAlignment="Center"/>
+                        </Border>
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </ScrollView>
+
+        <!--Commands-->
+        <HorizontalStackLayout Grid.Row="1" Padding="14" Spacing="20" BackgroundColor="#444444">
+            <Button Text="Add New Task..." Clicked="ButtonAddNewItem"/>
+            <Button Text="Clear Tasks..." Clicked="ButtonDeleteAllItems"/>
+        </HorizontalStackLayout>
+        
+    </Grid>
+
+</ContentPage>

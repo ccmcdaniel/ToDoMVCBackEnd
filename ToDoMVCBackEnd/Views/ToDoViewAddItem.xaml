@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoMVCBackEnd.Views.ToDoViewAddItem"
+             Title="ToDoViewAddItem">
+
+    <Border MaximumWidthRequest="400" MaximumHeightRequest="320" Padding="20" BackgroundColor="#272727"
+            Stroke="#444488" StrokeThickness="5" StrokeShape="RoundRectangle, 10">
+        <VerticalStackLayout Spacing="20">
+            <Label Text="Add New Task" HorizontalOptions="Center" FontSize="26"/>
+            <Label Text="Error Placeholder" HorizontalOptions="Center" x:Name="lblErrorMessage" TextColor="#FF9999"/>
+            <Entry Placeholder="Detail" x:Name="txtNewDetail"/>
+            <Entry Placeholder="Assigned to?" x:Name="txtNewAssignedto"/>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button Text="Create Task" Clicked="ButtonCreateTask"/>
+                <Button Text="Cancel" Clicked="ButtonCancelCreateTask"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</ContentPage>
